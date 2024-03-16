@@ -126,10 +126,6 @@ peer = {
 
 }
 
-listen('peer:client:resp', function()
-    peer.resp = true
-end)
-
 listen('peer:client:new', function(s, p, n, l)
     peer.peers[tostring(s)] = {
         entity = NetToPed(p),
