@@ -98,8 +98,8 @@ peer = {
         end
     },
 
-    net = function(n, c, ...)
-        local result = tell('peer:server:net', n, c, ...)
+    net = function(s, n, c, ...)
+        local result = tell('peer:server:net', s, n, c, ...)
         if result then return end
     end,
 
