@@ -87,7 +87,6 @@ listen('peer:server:trigger', function(s, c, e, ...)
                 end
             end
         end
-        tell(source, 'peer:client:resp')
         return 
     end
     for k in pairs (peer.peers) do 
