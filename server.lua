@@ -137,22 +137,40 @@ listen('peer:server:setdata', function(k, v)
     return { true }
 end)
 
-listen('peer:server:net', function(n, c, ...)
+listen('peer:server:net', function(s, n, c, ...)
     if not peer.peers[tostring(source)] then print('[browns_peerSync]: attempt to perform a peer action on a non peer, do "peer.new()" to initiate peer first, [ERROR]') return end 
     if type(c) ~= 'table' then print('[browns_peerSync]: channels data is not a table [ERROR]') return end  
     local channels = {}
     for i = 1, #c do 
         channels[c[i]] = true 
     end 
-    for k in pairs (peer.peers) do 
-        if peer.peers[k] then 
-            for a in pairs(peer.peers[k].channels) do 
-                if channels[a] then 
-                    tell(tonumber(k), 'peer:client:on', n, ...)
+    
+    if s then 
+        for k in pairs (peer.peers) do 
+            if peer.peers[k] then 
+                for a in pairs(peer.peers[k].channels) do 
+                    if channels[a] then 
+                        tell(tonumber(k), 'peer:client:on', n, ...)
+                    end
                 end
             end
         end
     end
+
+    if not s then 
+        for k in pairs (peer.peers) do 
+            if k ~= tostring(source) then 
+                if peer.peers[k] then 
+                    for a in pairs(peer.peers[k].channels) do 
+                        if channels[a] then 
+                            tell(tonumber(k), 'peer:client:on', n, ...)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
     return { true }
 end)
 
