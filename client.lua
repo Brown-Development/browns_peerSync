@@ -38,7 +38,7 @@ peer = {
 
     data = {},
 
-    new = function (c) 
+    new = function () 
         local id, name, license = tell('peer:server:new', c)
         peer.client.id = id
         peer.client.name = name 
